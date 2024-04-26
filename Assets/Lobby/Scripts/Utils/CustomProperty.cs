@@ -86,8 +86,8 @@ public static class CustomProperty
 
     public static void SetGameStartTime(this Room room, double value)
     {
-        property.Clear();
-        property[GAMESTARTTIME] = value;
-
+        PhotonHashTable property = new PhotonHashTable();
+        property[GameStarTime] = value;
+        room.SetCustomProperties(property);
     }
 }

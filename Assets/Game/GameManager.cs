@@ -11,6 +11,7 @@ using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] TMP_Text infogText;
+    [SerializeField] float countdownTime;
     [SerializeField] float countDown;
 
     private void Start()
@@ -48,9 +49,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator StartTimer()
     {
         double LoadTimne = PhotonNetwork.CurrentRoom.GetGameStartTIme();
-        while (PhotonNetwork.Time - LoadTimne < CountDownTime)
+        while (PhotonNetwork.Time - LoadTimne < countdownTime)
         {
-            int remainTime = (int)(CountdownTime - (PhotonNetwork.Time - LoadTIme));
+            int remainTime = (int)(countdownTime - (PhotonNetwork.Time - LoadTIme));
             infogText.text = (remainTime + 1).ToString();
             yield return null;
         }
@@ -80,7 +81,5 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
         return loadCount;
-
-
     }
 }

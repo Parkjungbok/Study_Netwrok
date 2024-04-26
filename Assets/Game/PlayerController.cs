@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSeriaLizeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if(stream.IsWriting)
+        if (stream.IsWriting)
         {
             stream.SendNext(fireCount);
         }
