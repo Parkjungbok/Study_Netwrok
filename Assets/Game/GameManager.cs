@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    PhotonNetwork.CurrentRoom.GetGameStart(true);
+                    PhotonNetwork.CurrentRoom.GetGameStart();
                     PhotonNetwork.CurrentRoom.SetGameStartTime(PhotonNetwork.Time);
+                    PhotonNetwork.CurrentRoom.IsOpen = false;
+                    PhotonNetwork.CurrentRoom.IsVisible = false;
                 }
             }
             else
@@ -48,10 +50,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     IEnumerator StartTimer()
     {
-        double LoadTimne = PhotonNetwork.CurrentRoom.GetGameStartTIme();
-        while (PhotonNetwork.Time - LoadTimne < countdownTime)
+        double LoadTime = PhotonNetwork.CurrentRoom.GetGameStartTIme();
+        while (PhotonNetwork.Time - LoadTime < countdownTime)
         {
-            int remainTime = (int)(countdownTime - (PhotonNetwork.Time - LoadTIme));
+            int remainTime = (int)(countdownTime - (PhotonNetwork.Time - LoadTime));
             infogText.text = (remainTime + 1).ToString();
             yield return null;
         }
@@ -65,9 +67,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         infogText.text = "Game Start!";
+
         yield return new WaitForSeconds(3f);
 
         infogText.text = "";
+    }
+
+    public void GameStart()
+    {
+
     }
 
     private int PlyerLoadCount()
